@@ -33,28 +33,8 @@ function TodoForm() {
                 </div>
                 <button 
                     type="button"
-                    onClick={() => {
-                        setShowDeadline((s) => {
-                            const newState = !s;
-                            if (newState) {
-                                // Open the date picker immediately
-                                setTimeout(() => {
-                                    if (dateRef.current) {
-                                        dateRef.current.focus();
-                                        if (typeof dateRef.current.showPicker === 'function') {
-                                            try { 
-                                                dateRef.current.showPicker();
-                                            } catch (e) {
-                                                console.log('showPicker not available');
-                                            }
-                                        }
-                                    }
-                                }, 0);
-                            }
-                            return newState;
-                        });
-                    }}
-                    className={`rounded-lg px-3 py-3 border-2 transition-all shrink-0 ${showDeadline ? 'bg-purple-100 border-purple-300 text-purple-700 shadow-md' : 'bg-white border-gray-300 text-gray-600 hover:bg-purple-50 hover:border-purple-200'}`}
+                    onClick={() => setShowDeadline((s) => !s)}
+                    className={`rounded-lg px-3 py-3 border-2 transition-colors shrink-0 ${showDeadline ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-50'}`}
                     title={showDeadline ? 'Hide deadline' : 'Add deadline'}
                 >
                     📅
@@ -68,18 +48,27 @@ function TodoForm() {
             </div>
             
             {showDeadline && (
-                <div className="w-full">
+                <div
+                    className="cursor-pointer"
+                    onClick={() => {
+                        if (dateRef.current) {
+                            dateRef.current.focus()
+                            if (typeof dateRef.current.showPicker === 'function') {
+                                try { dateRef.current.showPicker() } catch (e) {}
+                            }
+                        }
+                    }}
+                >
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Due Date (Optional)</label>
                     <div className="relative">
                         <span className="absolute left-3 top-3 text-lg opacity-80">📅</span>
                         <input
                             ref={dateRef}
                             type="datetime-local"
-                            className="w-full pl-10 border-2 border-purple-200 rounded-xl px-4 outline-none duration-200 bg-white/80 py-3 text-gray-900 placeholder-gray-500 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 shadow-sm cursor-pointer hover:border-purple-300 transition-colors"
+                            className="w-full pl-10 border-2 border-purple-200 rounded-xl px-4 outline-none duration-200 bg-white/80 py-3 text-gray-900 placeholder-gray-500 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 shadow-sm"
                             value={deadline}
                             onChange={(e) => setDeadline(e.target.value)}
                             title="Set deadline for this task"
-                            autoFocus
                         />
                     </div>
                 </div>
