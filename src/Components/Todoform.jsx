@@ -53,7 +53,7 @@ function TodoForm() {
                 <button
                     type="button"
                     onClick={openDatePicker}
-                    className={`rounded-lg px-3 py-3 border-2 transition-colors shrink-0 
+                    className={`rounded-lg px-3 py-3 border-2 transition-colors shrink-0 focus:border-indigo-400
                         ${deadline 
                             ? 'bg-purple-100 border-purple-300 text-purple-700' 
                             : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-50'
