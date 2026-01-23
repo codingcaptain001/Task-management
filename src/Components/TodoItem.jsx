@@ -22,6 +22,7 @@ function TodoItem({ todo }) {
         if (!deadlineStr) return '';
         const date = new Date(deadlineStr);
         return date.toLocaleString(undefined, {
+            year: "numeric",
             month: 'short',
             day: 'numeric',
             hour: '2-digit',
